@@ -7,9 +7,9 @@ module.exports = {
       node: true,
       jest: true,
     },
-    /* 指定如何解析语法 */
+// 指定如何解析语法
     parser: 'vue-eslint-parser',
-    /** 优先级低于 parse 的语法解析配置 */
+// 优先级低于 parse 的语法解析配置
     parserOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -19,7 +19,7 @@ module.exports = {
         jsx: true,
       },
     },
-    /* 继承已有的规则 */
+// 继承已有的规则
     extends: [
       'eslint:recommended',
       'plugin:vue/vue3-essential',
@@ -27,11 +27,11 @@ module.exports = {
       'plugin:prettier/recommended'
     ],
     plugins: ['vue', '@typescript-eslint'],
-    /*
-     * "off" 或 0    ==>  关闭规则
-     * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
-     * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
-     */
+/*
+ * "off" 或 0    ==>  关闭规则
+ * "warn" 或 1   ==>  打开的规则作为警告（不影响代码执行）
+ * "error" 或 2  ==>  规则作为一个错误（代码不能执行，界面报错）
+ */
     rules: {
       // eslint（https://eslint.bootcss.com/docs/rules/）
       'no-var': 'error', // 要求使用 let 或 const 而不是 var
