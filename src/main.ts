@@ -14,6 +14,8 @@ import gloalComponent from '@/components/index'
 import '@/styles/index.scss'
 // 引入路由器
 import router from './router'
+// 引入Pinia仓库
+import pinia from './store/index'
 
 // 创建应用实例对象app
 const app = createApp(App)
@@ -28,6 +30,9 @@ app.use(gloalComponent)
 
 // 安装模板路由器
 app.use(router)
+
+// 安装Pinia仓库
+app.use(pinia)
 
 // 挂载模板App
 app.mount('#app')

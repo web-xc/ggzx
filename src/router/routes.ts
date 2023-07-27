@@ -7,7 +7,7 @@ export const consttantRoute = [
     },
     {
         path: '/',       // 登录成功展示的路由
-        component: () => import('@/views/home/index.vue'),
+        component: () => import('@/layout/index.vue'),
         name: 'layout'
     },
     {
