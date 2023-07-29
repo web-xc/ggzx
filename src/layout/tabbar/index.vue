@@ -22,6 +22,7 @@ import Setting from './setting/index.vue'
     justify-content: space-between;
     width: 100%;
     height: 100%;
+    font-size: 20px;
     .tabbar_left {
         display: flex;
         align-items: center;
@@ -30,6 +31,7 @@ import Setting from './setting/index.vue'
     .tabbar_right {
         display: flex;
         align-items: center;
+        margin-right: 30px;
     }
   }
 </style>

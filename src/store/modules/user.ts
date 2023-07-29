@@ -1,7 +1,7 @@
 // 创建用户相关的小仓库
 import { defineStore } from 'pinia'
 // 引入项目管理接口
-import { reqLogin } from '@/api/user'
+import { reqLogin, reqUserInfo } from '@/api/user'
 // 引入数据类型
 import type { loginForm, loginResponseData } from '@/api/user/type'
 // 引入小仓库数据类型
@@ -16,7 +16,9 @@ let useUserStore = defineStore('User', {
     state: (): UserState => {
         return {
             token: GET_TOKEN(), // 用户唯一标识
-            menuRoutes: consttantRoute // 仓库存储生成菜单需要的数组(路由)
+            menuRoutes: consttantRoute, // 仓库存储生成菜单需要的数组(路由)
+            username: '',
+            avatar: ''
         }
     },
 // 异步|逻辑的地方
@@ -37,7 +39,17 @@ let useUserStore = defineStore('User', {
             } else {
                 return Promise.reject(new Error(result.data.message))
             }
-        }
+        },
+// 获取用户信息的方法
+            async userInfo() {
+// 获取用户信息进行存储仓库中的用户头像、名字...
+                const result = await reqUserInfo()
+// 若获取用户信息成功, 则存储用户信息
+                if (result.code == 200) {
+                    this.username = result.data.checkUser.username;
+                    this.avatar = result.data.checkUser.avatar
+                }
+            }
     },
     getters: {
 

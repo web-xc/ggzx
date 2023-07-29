@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-// 获取父组件传递的全部路由数组
+// 接收父组件传递的全部路由数组
 defineProps(['menuList'])
 // 引入路由器
 import { useRouter } from 'vue-router'
