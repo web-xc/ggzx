@@ -8,12 +8,15 @@ import type { loginForm, loginResponseData } from '@/api/user/type'
 import type { UserState } from './types/type'
 // 引入操作本地存储的工具方法
 import { SET_TOKEN, GET_TOKEN } from '@/utils/token'
+// 引入路由(常量路由器)
+import { consttantRoute } from '@/router/routes'
 
 let useUserStore = defineStore('User', {
 // 小仓库存储数据的地方
     state: (): UserState => {
         return {
-            token: GET_TOKEN() // 用户唯一标识
+            token: GET_TOKEN(), // 用户唯一标识
+            menuRoutes: consttantRoute // 仓库存储生成菜单需要的数组(路由)
         }
     },
 // 异步|逻辑的地方
@@ -27,7 +30,7 @@ let useUserStore = defineStore('User', {
 // 请求成功: 则Pinia仓库存储一下Token
                 this.token = (result.data.token as string)
                 console.log(result.data.token)
-// Pinia/Vuex存储数利用的JS对象, 那么使用本地存储实现持久化存储
+// Pinia/Vuex存储数据是利用的JS对象, 那么使用本地存储实现持久化存储
                 SET_TOKEN(result.data.token as string)
 // 要保证当前async函数返回一个成功的Promise
                 return 'ok'
