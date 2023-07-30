@@ -5,5 +5,5 @@ export interface UserState {
     token: string | null;
     menuRoutes: RouteRecordRaw;
     username: string;
-    avata: string
+    avatar: string
 }

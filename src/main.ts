@@ -51,9 +51,3 @@ app.mount('#app')
 //         password: '111111'
 //     }
 // })
-
-// 测试代码
-// const fn = () => {
-//   console.log("测试没有格式化的代码")
-// }
-// fn()

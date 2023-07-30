@@ -1,5 +1,5 @@
 // 暴露路由配置(常量路由)
-export const consttantRoute = [
+export const constantRoute = [
     {
         path: '/login',  // 登录路由
         component: () => import('@/views/login/index.vue'),

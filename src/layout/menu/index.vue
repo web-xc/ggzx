@@ -42,7 +42,7 @@ defineProps(['menuList'])
 // 引入路由器
 import { useRouter } from 'vue-router'
 // 获取路由器对象
-let $router = useRouter()
+const $router = useRouter()
 
 // 点击菜单的回调
 const goRoute = (vc: any) => {

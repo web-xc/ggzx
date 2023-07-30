@@ -2,7 +2,7 @@
 export const getTime = () => {
     let message = ''
 // 通过内置构造函数Date获取当前时间
-    let hours = new Date().getHours()
+    const hours = new Date().getHours()
     if (hours <= 9) {
         message = '早上好'
     } else if (hours <= 12) {

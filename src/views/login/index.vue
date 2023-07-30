@@ -30,16 +30,16 @@ import { ElNotification } from 'element-plus'
 import { getTime } from '@/utils/time'
 // 引入用户相关的小仓库
 import useUserStore from '@/store/modules/user'
-let useStore = useUserStore()
+const useStore = useUserStore()
 // 获取路由器
-let $router = useRouter()
+const $router = useRouter()
 // 定义变量: 控制按钮加载效果
-let loading = ref(false)
+const loading = ref(false)
 // 获取el-form组件
-let loginForms = ref()
+const loginForms = ref()
 
 // 收集账号与密码数据
-let loginForm = reactive({username: 'admin', password: '111111'})
+const loginForm = reactive({username: 'admin', password: '111111'})
 // 登录按钮回调
 const login = async () => {
 // 保证全部表单校验通过再发送请求

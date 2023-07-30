@@ -5,7 +5,7 @@ import { ElMessage } from "element-plus"
 import useUserStore from "@/store/modules/user"
 
 // 1. 创建axios实例: 利用axios对象create方法创建
-let request = axios.create({
+const request = axios.create({
 // 基础路径: 会携带/api
     baseURL: import.meta.env.VITE_APP_BASE_API,
 // 请求超时的时间
@@ -13,7 +13,7 @@ let request = axios.create({
 })
 // 2. 为request实例添加请求拦截器与响应拦截器
 // 请求拦截器
-request.interceptors.request.use(config => {
+request.interceptors.request.use((config) => {
 // 返回config配置对象: 有个header属性请求头, 经常给服务端携带公共参数
 // 获取用户相关的小仓库, 获取仓库内部token, 登录成功后会携带给服务器
     const userStore = useUserStore()
@@ -28,9 +28,9 @@ request.interceptors.response.use((response) => {
 }, (error) => {
 // 失败回调: 处理网络错误
 // msg变量: 存储网络错误信息
-    let msg = '';
+    const msg = '';
 // HTTP状态码
-    let status = error.response.status
+    const status = error.response.status
     switch (status) {
         case 401:
             msg = "token过期"
