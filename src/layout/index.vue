@@ -1,7 +1,7 @@
 <template>
     <div class="layout_container">
         <!-- 左侧菜单 -->
-        <div class="layout_slider" :class="{ fold: LayOutSettingStore.fold ? true : false }">
+        <div class="layout_slider">
             <Logo></Logo>
             <!-- 展示菜单 -->
             <!-- 滚动组件 -->
@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 // 引入路由对象
-import { useRoute } from 'vue-router'
+// import { useRoute } from 'vue-router'
 // 引入左侧菜单Logn子组件
 import Logo from './logo/index.vue'
 // 引入菜单组件
@@ -43,8 +43,8 @@ import useLayOutSettingStore from '@/store/modules/setting'
 
 // 获取用户相关小仓库
 const useStore = useUserStore()
-// 获取路由对象
-const $route = useRoute()
+// 获取路由对象 
+// const $route = useRoute()
 // 获取layout配置相关的仓库
 const LayOutSettingStore = useLayOutSettingStore()
 </script>
@@ -76,6 +76,7 @@ const LayOutSettingStore = useLayOutSettingStore()
         left: $base-menu-width;
         width: calc(100% - $base-menu-width);
         height: $base-tabbar-height;
+        transition: all 0.3s;
         &.fold {
             width: calc(100vw - $base-menu-min-width);
             left: $base-menu-min-width;
@@ -88,7 +89,7 @@ const LayOutSettingStore = useLayOutSettingStore()
         padding: 20px;
         width: calc(100% - $base-menu-width);
         height: calc(100vh - $base-tabbar-height);
-        background-color: #0000008c;
+        background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
         overflow: auto;
         transition: all 0.3s;
         

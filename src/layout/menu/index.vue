@@ -47,7 +47,6 @@ const $router = useRouter()
 // 点击菜单的回调
 const goRoute = (vc: any) => {
     $router.push(vc.index) // 路由跳转
-    console.log(vc.index)
 }
 </script>
 <script lang="ts">
