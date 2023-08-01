@@ -1,8 +1,6 @@
-### 本项目是硅谷甄选运营平台后台管理系统
+# 本项目是硅谷甄选运营平台后台管理系统
 
-### 项目技术栈: Vue3、TypeScript、Vite、Pinia、Element-Plus、Vue-Router、Echarts、Axios、Scss...
-
-----
+# 项目技术栈: Vue3、TypeScript、Vite、Pinia、Element-Plus、Vue-Router、Echarts、Axios、Scss...
 
 ## 项目使用
 

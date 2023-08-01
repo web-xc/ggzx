@@ -57,4 +57,7 @@ const logout = async () => {
     font-size: 20px;
     padding: 2px;
   }
+  span {
+    cursor: pointer !important;
+  }
 </style>

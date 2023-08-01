@@ -1,6 +1,6 @@
 // 统一管理项目用户相关的接口
 import request from "@/utils/request"
-// 引入接口TS数据类型
+// 引入TS定义的接口数据类型
 import type { loginFormData, loginResponseData, userInfoResponseData } from "./type"
 
 // 项目用户相关的请求地址

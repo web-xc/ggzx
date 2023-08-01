@@ -23,7 +23,7 @@ router.beforeEach(async (to: any, from: any, next: any) => {
 // 获取用户信息
     const username = userStore.username
     if (token) {
-// 登录成功后, 首页不能访问login, 并指向首页
+// 登录成功后, 则不能访问login了, 若访问login则重定向到首页
         if (to.path == '/login') {
             next({path: '/'})
         } else {
@@ -36,14 +36,14 @@ router.beforeEach(async (to: any, from: any, next: any) => {
                     await userStore.userInfo()
                     next()
                 } catch (error) {
-// token过期或用户修改本地存储, 应清空相关token数据, 并携带query参数优化体验
+// token过期或用户修改本地存储, 应清空token相关数据, 并携带当前query参数跳转至login
                     await userStore.userLogout()
                     next({path: '/login', query: {redirect: to.path}})
                 }
             }
         }
     } else {
-// 判断用户未登录, 若未登录则跳转到登录页, 并携带当前路由query参数跳转
+// 判断用户未登录, 若未登录可跳转login, 访问其余路由则重定向到login, 并携带当前路由query参数跳转
         if (to.path == '/login') {
             next()
         } else {

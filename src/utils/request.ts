@@ -28,7 +28,7 @@ request.interceptors.response.use((response) => {
 }, (error) => {
 // 失败回调: 处理网络错误
 // msg变量: 存储网络错误信息
-    const msg = '';
+    let msg = '';
 // HTTP状态码
     const status = error.response.status
     switch (status) {

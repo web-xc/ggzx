@@ -89,7 +89,7 @@ const LayOutSettingStore = useLayOutSettingStore()
         padding: 20px;
         width: calc(100% - $base-menu-width);
         height: calc(100vh - $base-tabbar-height);
-        background-image: linear-gradient(-225deg, #473B7B 0%, #3584A7 51%, #30D2BE 100%);
+        background-color: #e6e6e6;
         overflow: auto;
         transition: all 0.3s;
         
