@@ -1,9 +1,10 @@
-// 引入项目中的全局组件 
+// 引入项目中的全部全局组件 
 import SvgIcon from '@/components/SvgIcon/index.vue'
+import Category from '@/components/Category/index.vue'
 // 引入Element-Plus全部图标组件
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-// 全局对象
-const allGloalComponent = { SvgIcon, ElementPlusIconsVue }
+// 注册组件为全局对象
+const allGloalComponent = { SvgIcon, ElementPlusIconsVue, Category }
 
 // 暴露插件对象, 必须为install方法
 export default {

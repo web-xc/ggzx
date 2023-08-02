@@ -1,19 +1,21 @@
-// 管理模块接口
+// 对axios二次封装的请求接口
 import request from "@/utils/request"
 // 引入TS定义的数据类型
 import type { TradeMarkResponseData, TradeMark } from './type'
 
 // 模块接口地址
 enum API {
-// 获取已有品牌接口
+// 获取品牌接口
     TRADEMARK_URL = "/admin/product/baseTrademark/", 
 // 添加品牌接口
     ADDTRADEMARK_URL = "/admin/product/baseTrademark/save",
 // 修改品牌接口
-    UPDATETRADEMARK_URL = "/admin/product/baseTrademark/update"
+    UPDATETRADEMARK_URL = "/admin/product/baseTrademark/update",
+// 删除品牌接口
+    DELETE_URL = "/admin/product/baseTrademark/remove/"
 }
 
-// 获取已有品牌接口的方法
+// 获取品牌接口的方法
 export const reqHasTrademark = (page: number, limit: number) => request.get<any, TradeMarkResponseData>(API.TRADEMARK_URL + `${page}/${limit}`)
 
 // 添加与修改品牌接口的方法
@@ -25,3 +27,5 @@ export const reqAddOrUpdateTrademark = (data: TradeMark) => {
         return request.post<any, any>(API.ADDTRADEMARK_URL, data)
     }
 }
+// 删除品牌数据的方法
+export const reqDeleteTrademark = (id: number) => request.delete<any>(API.DELETE_URL + id)

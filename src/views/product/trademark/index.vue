@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-card class="box-card">
+        <el-card>
             <!-- 卡片顶部添加品牌按钮 -->
             <el-button type="primary" size="default" icon="Plus" @click="addTrademark">添加品牌</el-button>
             <!-- 表格组件: 用于展示已有的平台数据 -->
@@ -21,8 +21,12 @@
                 </el-table-column>
                 <el-table-column label="品牌操作">
                     <template #="{ row, $index }">
-                        <el-button type="primary" size="small" icon="Edit" @click="updateTrademark(row)"></el-button>
-                        <el-button type="primary" size="small" icon="Delete"></el-button>
+                        <el-button type="warning" size="default" icon="Edit" @click="updateTrademark(row)"></el-button>
+                        <el-popconfirm :title="`确定删除${row.tmName}吗?`" width="170px" icon="Delete" icon-color="red" @confirm="removeTrademark(row.id)" :hide-after="10">
+                            <template #reference>
+                                <el-button type="danger" size="default" icon="Delete"></el-button>
+                            </template>
+                        </el-popconfirm>
                     </template>
                 </el-table-column>
             </el-table>
@@ -46,11 +50,11 @@
         <!-- v-model: 控制对话框显示隐藏/true/false -->
         <!-- title: 设置对话框左上角标题 -->
         <el-dialog v-model="dialogFormVisible" :title="trademarkParams.id ? '修改品牌' : '添加品牌'">
-            <el-form style="width: 50%;">
-                <el-form-item label="品牌名称" label-width="80px">
+            <el-form style="width: 50%;" :model="trademarkParams" :rules="rules" ref="formRef">
+                <el-form-item label="品牌名称" label-width="100px" prop="tmName">
                     <el-input placeholder="请您输入品牌名称" v-model="trademarkParams.tmName"></el-input>
                 </el-form-item>
-                <el-form-item label="品牌Logo" label-width="80px">
+                <el-form-item label="品牌Logo" label-width="100px" prop="logoUrl">
         <!-- action: 图片上传路径, 要配置/api, 否则代理服务器不发送请求 -->
         <!-- :before-upload: 上传图片之前调用的钩子函数(可约束文件类型与大小) -->
         <!-- :on-success: 图片上传成功时调用的钩子函数 -->
@@ -71,8 +75,8 @@
 
 <script setup lang="ts">
 // 引入组合式API函数
-import { ref, onMounted, reactive } from 'vue'
-import { reqHasTrademark, reqAddOrUpdateTrademark } from '@/api/product/trademark/index'
+import { ref, onMounted, reactive, nextTick } from 'vue'
+import { reqHasTrademark, reqAddOrUpdateTrademark, reqDeleteTrademark } from '@/api/product/trademark/index'
 // 引入TS定义的数据类型
 import type { Records, TradeMarkResponseData, TradeMark } from "@/api/product/trademark/type"
 // 引入上传图片相关数据类型/ElMessage提示框
@@ -92,6 +96,8 @@ const trademarkParams = reactive<TradeMark>({
     tmName: '',
     logoUrl: ''
 })
+// 获取el-form组件实例(用于对话框组件校验规则)
+const formRef = ref()
 
 // 获取已有品牌的接口并封装为函数, 在任何情况下获取数据, 调用函数即可
 // 1. 当前页码发生变化时会触发, 并发起请求获取对应品牌数据
@@ -123,10 +129,22 @@ const addTrademark = () => {
     trademarkParams.id = 0
     trademarkParams.tmName = ''
     trademarkParams.logoUrl = ''
+// 清除校验规则错误信息(第一种写法：TS问号语法)
+    // formRef.value?.clearValidate('tmName')
+    // formRef.value?.clearValidate('logoUrl')
+// 第二种写法: nextTick语法
+    nextTick(() => {
+        formRef.value.clearValidate('tmName')
+        formRef.value.clearValidate('logoUrl')
+    })
 }
 // 编辑品牌按钮的回调
 // row是当前品牌数据
 const updateTrademark = (row: TradeMark) => {
+// 清除校验规则错误信息(nextTick写法不知道为什么报错, 暂时使用TS问号语法)
+    formRef.value?.clearValidate('tmName')
+    formRef.value?.clearValidate('logoUrl')
+
     dialogFormVisible.value = true
 // 显示当前品牌数据: ES6语法合并对象, 将已有品牌数据row拷贝赋值给trademarkParams对象
     Object.assign(trademarkParams, row)
@@ -137,6 +155,9 @@ const cancel = () => {
 }
 // 确定按钮的功能: 对话框收集数据后发送请求的方法
 const confirm = async () => {
+// 在发送请求之前, 对整个表单进行校验(调用方法,若校验通过,会返回成功的Promiss, 再执行后面语法)
+    await formRef.value.validate()
+
     const result: any = await reqAddOrUpdateTrademark(trademarkParams)
     console.log(result)
     if (result.code == 200) {
@@ -185,6 +206,48 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (response, uploadFile) => 
 // 将response返回的图片url赋值给定义好的变量, 并在el-upload组件中回显图片
     trademarkParams.logoUrl = response.data
     console.log(response)
+// 图片上传成功后, 清除校验规则错误信息
+    formRef.value.clearValidate('logoUrl')
+}
+// 添加品牌自定义校验规则的方法
+const validatorTmName = (rule: any, value: any, callBack: any) => {
+    if (value.trim().length >= 2) {
+        callBack()
+    } else {
+// 校验未通过则返回错误提示信息
+        callBack(new Error('品牌名称要大于等于两位'))
+    }
+}
+const validatorLogoUrl = (rule: any, value: any, callBack: any) => {
+    if (value) {
+        callBack()
+    } else {
+        callBack(new Error('LOGO图片务必上传'))
+    }
+}
+// 表单校验规则对象
+const rules = {
+    tmName: [{required: true, trigger: 'blur', validator: validatorTmName}],
+    logoUrl:[{required: true, validator: validatorLogoUrl}]
+}
+// 气泡确认框确定按钮的回调
+// 点击确定按钮并发送删除请求, 成功删除则重新获取品牌数据并弹出提示信息
+const removeTrademark = async (id: number) => {
+    const result = await reqDeleteTrademark(id)
+    console.log(result)
+    if (result.code == 200) {
+        ElMessage({
+            type: 'success',
+            message: '删除品牌成功'
+        })
+// 删除成功则重新获取品牌数据(若当前页品牌大于1则还是当前页, 若小于1则回到上一页)
+        getHasTrademark(trademarkArr.value.length > 1 ? pageNo.value : pageNo.value -1)
+    } else {
+        ElMessage({
+            type: 'error',
+            message: '删除品牌失败'
+        })
+    }
 }
 </script>
 
