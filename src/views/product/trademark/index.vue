@@ -82,7 +82,7 @@ import type { Records, TradeMarkResponseData, TradeMark } from "@/api/product/tr
 // 引入上传图片相关数据类型/ElMessage提示框
 import { ElMessage, UploadProps } from 'element-plus'
 
-// 当前页码, 每页展示多少条数据
+// 当前页码/每页展示多少条数据
 const pageNo = ref<number>(1)
 const limit = ref<number>(3)
 // 存储已有品牌数据总条数

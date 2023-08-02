@@ -8,7 +8,7 @@ import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
 // 引入Svg插件配置
 import 'virtual:svg-icons-register'
-// 引入自定义插件: 注册整个项目全局组件(用于全局使用SVG)
+// 引入自定义插件: 注册整个项目全局组件(用于全局使用SVG、全局组件、全局图标...)
 import gloalComponent from '@/components/index'
 // 引入模板的全局样式
 import '@/styles/index.scss'
@@ -27,7 +27,7 @@ app.use(ElementPlus, {
     locale: zhCn
 })
 
-// 安装自定义插件gloalComponent (用于全局使用SVG)
+// 安装自定义插件gloalComponent (用于全局使用SVG、全局组件、全局图标...)
 app.use(gloalComponent)
 
 // 安装模板路由器
