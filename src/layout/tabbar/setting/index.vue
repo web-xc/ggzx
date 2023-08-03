@@ -1,8 +1,8 @@
 <template>
-    <el-button size="small" icon="Refresh" circle @click="updataRefsh"></el-button>
-    <el-button size="small" icon="FullScreen" circle @click="fullScreen"></el-button>
-    <el-button size="small" icon="Setting" circle></el-button>
-    <img :src="userStore.avatar" style="width: 20px; height: 24px; margin: 0px 10px; border-radius: 10%;">
+    <el-button icon="Refresh" circle @click="updataRefsh"></el-button>
+    <el-button icon="FullScreen" circle @click="fullScreen"></el-button>
+    <el-button icon="Setting" circle></el-button>
+    <img :src="userStore.avatar" style="width: 32px; height: 32px; margin: 0px 10px; border-radius: 50%;">
     <!-- 下拉菜单 -->
     <el-dropdown>
         <span class="el-dropdown-link">{{ userStore.username }}
@@ -53,10 +53,6 @@ const logout = async () => {
 </script>
 
 <style scoped lang="scss">
-  * {
-    font-size: 20px;
-    padding: 2px;
-  }
   span {
     cursor: pointer !important;
   }

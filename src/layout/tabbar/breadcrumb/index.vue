@@ -7,7 +7,7 @@
         <!-- 面包屑需要动态展示路由名字与标题 -->
         <el-breadcrumb-item v-for="(item, index) in $route.matched" :key="index" v-show="item.meta.title" :to="item.path">
             <!-- 面包屑动态展示图标 -->
-            <el-icon>
+            <el-icon style="vertical-align: bottom;">
                 <component :is="item.meta.icon"></component>
             </el-icon>
             <!-- 面包屑展示匹配路由的标题 -->

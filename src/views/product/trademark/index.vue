@@ -66,7 +66,7 @@
             </el-form>
         <!-- 对话框取消/确定按钮: 使用具名插槽footer -->
             <template #footer>
-                <el-button type="primary" size="default" @click="cancel">取消</el-button>
+                <el-button type="primary" size="default" @click="cancel" plain>取消</el-button>
                 <el-button type="primary" size="default" @click="confirm">确定</el-button>
             </template>
         </el-dialog>
