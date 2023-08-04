@@ -24,6 +24,7 @@ export interface AttrValue {
     id?: number,
     valueName: string,
     arrtId?: number
+    flag?: boolean
 }
 
 // 存储每一个属性值为数组类型
