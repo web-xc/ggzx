@@ -13,7 +13,7 @@
                     <el-table-column label="SPU操作">
                         <template #="{row, $index}">
                             <el-button type="primary" size="small" icon="Plus" title="添加SPU"></el-button>
-                            <el-button type="warning" size="small" icon="Edit" title="修改SPU" @click="updateSpu"></el-button>
+                            <el-button type="warning" size="small" icon="Edit" title="修改SPU" @click="updateSpu(row)"></el-button>
                             <el-button type="info" size="small" icon="WarningFilled" title="查看SPU列表"></el-button>
                             <el-button type="danger" size="small" icon="Delete" title="删除SPU"></el-button>
                         </template>
@@ -23,7 +23,7 @@
                 <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[2, 5, 6]" :background="true" layout="prev, pager, next, jumper, ->, sizes, total" :total="total" @current-change="getHasSpu" @size-change="changeSize"/>    
             </div>
         <!-- 添加SPU或修改SPU的子组件 -->
-            <SpuForm v-show="scene == 1" @changeScene="changeScene"></SpuForm>
+            <SpuForm v-show="scene == 1" @changeScene="changeScene" ref="spu"></SpuForm>
         <!-- 添加SKU的子组件 -->
             <SkuForm v-show="scene == 2"></SkuForm>
         </el-card>
@@ -41,7 +41,7 @@ import useCategoryStore from "@/store/modules/category"
 // 引入获取三级分类下的SPU数据接口
 import { reqHasSpu } from '@/api/product/spu'
 // 引入SPU相关数据的数据类型
-import type { HasSpuResponseData, Records } from "@/api/product/spu/type"
+import type { HasSpuResponseData, Records, SpuData } from "@/api/product/spu/type"
 
 // 获取分类接口相关的小仓库、获取属性与属性值接口
 const categoryStore = useCategoryStore()
@@ -55,6 +55,8 @@ const pageSize = ref<number>(3)
 const records = ref<Records>([])
 // 存储SPU数据总条数
 const total = ref<number>(0)
+// 获取子组件实例SpuForm
+const spu = ref<any>()
 
 // 监听三级分类ID变化
 watch(() => categoryStore.c3Id, () => {
@@ -86,8 +88,10 @@ const changeScene = (num: number) => {
     scene.value = 0
 }
 // 修改SPU按钮的回调
-const updateSpu = () => {
+const updateSpu = (row: SpuData) => {
     scene.value = 1
+// 调用子组件实例方法获取完整的SPU数据(将row数据回传给子组件)
+    spu.value.initHasSpuData(row)
 }
 </script>
 

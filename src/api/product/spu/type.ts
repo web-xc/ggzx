@@ -6,14 +6,15 @@ export interface ResponseData {
 }
 
 // SPU数据的数据类型: 需修改
+// 修改后是完整SPU数据 => 三级分类id、SPU品牌id、品牌名称、品牌属于哪个、品牌描述、品牌图片、品牌销售属性
 export interface SpuData {
+    category3Id: string | number,
     id?: number,
     spuName: string,
-    descripttion: string,
-    category3Id: string | number,
-    tmId: number,
-    spuSaleAttrList: null,
-    spuImageList: null
+    tmId: number | string,
+    description: string,
+    spuImageList: null | SpuImg[]
+    spuSaleAttrList: null | SaleAttr[],
 }
 
 // 将SPU数据赋值为数组类型
@@ -45,12 +46,14 @@ export interface AllTradeMark extends ResponseData {
 
 // SPU商品图片的数据类型
 export interface SpuImg {
-    id: number,
-    createTime: string,
-    updateTime: string,
-    spuId: number,
-    imgName: string,
-    imgUrl: string
+    id?: number,
+    imgName?: string,
+    imgUrl?: string
+    createTime?: string,
+    updateTime?: string,
+    spuId?: number,
+    name?: string,
+    url?: string
 }
 
 // 定义SPU商品图片为数组类型
@@ -61,13 +64,13 @@ export interface SpuHasImg extends ResponseData {
 // 定义SPU销售属性值对象的数据类型
 export interface SaleAttrValue {
     id?: number,
-    createTime: string,
-    updateTime: string,
-    spuId: number,
+    createTime?: string,
+    updateTime?: string,
+    spuId?: number,
     baseSaleAttrId: number,
     saleAttrValueName: string,
-    saleAttrName: string,
-    isChecked: string
+    saleAttrName?: string,
+    isChecked?: string
 }
 
 // 将SPU销售属性值对象赋值为数组类型
@@ -76,9 +79,9 @@ export type SpuSaleAttrValueList = SaleAttrValue[]
 // 定义SPU销售属性对象的数据类型
 export interface SaleAttr {
     id?: number,
-    createTime: string,
-    updateTime: string,
-    spuId: number,
+    createTime?: string,
+    updateTime?: string,
+    spuId?: number,
     baseSaleAttrId: number,
     saleAttrName: string,
     spuSaleAttrValueList: SpuSaleAttrValueList
@@ -86,7 +89,7 @@ export interface SaleAttr {
 
 // 定义SPU所有销售属性接口返回的数据类型
 export interface SaleAttrResponseData extends ResponseData {
-    data: []
+    data: SaleAttr[]
 }
 
 // 定义SPU全部销售属性的数据类型
