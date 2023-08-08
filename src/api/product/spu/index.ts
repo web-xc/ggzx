@@ -12,6 +12,7 @@ enum API {
     ALLSALEATTR_URL = '/admin/product/baseSaleAttrList', // 获取SPU全部的销售属性(颜色、版本、尺寸...)
     ADDSPU_URL = '/admin/product/saveSpuInfo', // 添加一个新的SPU
     UPDATESPU_URL = '/admin/product/updateSpuInfo', // 更新SPU数据
+    ADDSKU_URL = '/admin/product/saveSkuInfo', // 新增SKU数据接口
 }
 
 // 获取三级分类下的SPU数据
@@ -33,3 +34,6 @@ export const reqAddOrUpdateSpu = (data: SpuData) => {
         return request.post<any, any>(API.ADDSPU_URL, data)
     }
 }
+
+// 添加SKU数据的请求方法
+export const 
