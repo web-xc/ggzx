@@ -2,7 +2,7 @@
 // 对axios二次封装的请求接口
 import request from "@/utils/request"
 // 引入SPU相关数据的数据类型
-import type { HasSpuResponseData, AllTradeMark, SpuHasImg, SaleAttrResponseData, HasSaleAttrResponseData, SpuData } from "./type"
+import type { HasSpuResponseData, AllTradeMark, SpuHasImg, SaleAttrResponseData, HasSaleAttrResponseData, SpuData, SkuData, SkuInfoData } from "./type"
 
 enum API {
     HASSPU_URL = '/admin/product/', // 获取所有SPU数据
@@ -13,6 +13,8 @@ enum API {
     ADDSPU_URL = '/admin/product/saveSpuInfo', // 添加一个新的SPU
     UPDATESPU_URL = '/admin/product/updateSpuInfo', // 更新SPU数据
     ADDSKU_URL = '/admin/product/saveSkuInfo', // 新增SKU数据接口
+    SKUINFO_URL = '/admin/product/findBySpuId/', // 查看某一个SPU下全部售卖的商品
+    REMOVESPU_URL = '/admin/product/deleteSpu/' // 删除SPU品牌
 }
 
 // 获取三级分类下的SPU数据
@@ -36,4 +38,8 @@ export const reqAddOrUpdateSpu = (data: SpuData) => {
 }
 
 // 添加SKU数据的请求方法
-export const 
+export const reqAddSku = (data: SkuData) => request.post<any, any>(API.ADDSKU_URL, data)
+// 获取SKU数据的请求方法(查看SPU下全部售卖的商品)
+export const reqSkuList = (spuId: number | string) => request.get<any, SkuInfoData>(API.SKUINFO_URL + spuId)
+// 删除SPU品牌的请求方法
+export const reqRemoveSpu = (spuId: number | string) => request.delete<any, any>(API.REMOVESPU_URL + spuId)

@@ -14,8 +14,12 @@
                         <template #="{row, $index}">
                             <el-button type="primary" size="small" icon="Plus" title="添加SKU" @click="addSku(row)"></el-button>
                             <el-button type="warning" size="small" icon="Edit" title="修改SPU" @click="updateSpu(row)"></el-button>
-                            <el-button type="info" size="small" icon="WarningFilled" title="查看SPU列表"></el-button>
-                            <el-button type="danger" size="small" icon="Delete" title="删除SPU"></el-button>
+                            <el-button type="info" size="small" icon="WarningFilled" title="查看SPU列表" @click="findSku(row)"></el-button>
+                            <el-popconfirm :title="`确定删除${row.spuName}吗?`" @confirm="deleteSpu(row)" width="170px" icon="Delete" icon-color="red" :hide-after="10">
+                                <template #reference>
+                                    <el-button type="danger" size="small" icon="Delete" title="删除SPU"></el-button>
+                                </template>
+                            </el-popconfirm>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -26,6 +30,19 @@
             <SpuForm v-show="scene == 1" @changeScene="changeScene" ref="spu"></SpuForm>
         <!-- 添加SKU的子组件 -->
             <SkuForm v-show="scene == 2" @changeScene="changeScene" ref="sku"></SkuForm>
+            <!-- dialog对话框: 展示SKU数据 -->
+            <el-dialog title="SKU列表" v-model="show">
+                <el-table border :data="skuArr">
+                    <el-table-column label="SKU名称" prop="skuName"></el-table-column>
+                    <el-table-column label="SKU价格" prop="price"></el-table-column>
+                    <el-table-column label="SKU重量" prop="weight"></el-table-column>
+                    <el-table-column label="SKU图片">
+                        <template #="{row, $index}">
+                            <img :src="row.skuDefaultImg" style="width: 100px; height: 100px;">
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-dialog>
         </el-card>
     </div>
 </template>
@@ -35,13 +52,15 @@
 import SpuForm from './spuForm.vue'
 import SkuForm from './skuForm.vue'
 // 引入组合式API函数
-import { ref, watch } from 'vue'
+import { ref, watch, onBeforeUnmount } from 'vue'
 // 引入分类接口相关的小仓库
 import useCategoryStore from "@/store/modules/category"
 // 引入获取三级分类下的SPU数据接口
-import { reqHasSpu } from '@/api/product/spu'
+import { reqHasSpu, reqSkuList, reqRemoveSpu } from '@/api/product/spu'
 // 引入SPU相关数据的数据类型
-import type { HasSpuResponseData, Records, SpuData } from "@/api/product/spu/type"
+import type { HasSpuResponseData, Records, SpuData, SkuInfoData, SkuData } from "@/api/product/spu/type"
+// 引入Element-Plus的弹窗提示信息
+import { ElMessage } from 'element-plus'
 
 // 获取分类接口相关的小仓库、获取属性与属性值接口
 const categoryStore = useCategoryStore()
@@ -58,6 +77,10 @@ const total = ref<number>(0)
 // 获取子组件实例SpuForm/SkuForm
 const spu = ref<any>()
 const sku = ref<any>()
+// 存储全部的SKU数据
+const skuArr = ref<SkuData[]>([])
+// 定义控制dialog对话框显示/隐藏(查看SKU数据)
+const show = ref<boolean>(false)
 
 // 监听三级分类ID变化
 watch(() => categoryStore.c3Id, () => {
@@ -109,6 +132,36 @@ const addSku = (row: SpuData) => {
 // 调用子组件的方法初始化添加SKU数据
     sku.value.initSkuData(categoryStore.c1Id, categoryStore.c2Id, row)
 }
+// 查看SKU列表数据按钮的回调
+const findSku = async (row: SpuData) => {
+    const result: SkuInfoData = await reqSkuList((row.id as number))
+    if (result.code == 200) {
+        skuArr.value = result.data
+// 点击查看SKU按钮 则dialog对话框显示
+        show.value = true
+    }
+}
+// 删除SPU按钮的回调
+const deleteSpu = async (row: SpuData) => {
+    const result: any = await reqRemoveSpu((row.id as number))
+    if (result.code == 200) {
+        ElMessage({
+            type: 'success',
+            message: 'SPU删除成功'
+        })
+// 删除成功则重新获取SPU数据(若当前页SPU大于1则还是当前页, 若小于1则回到上一页)
+        getHasSpu(records.value.length > 1 ? pageNo.value : pageNo.value - 1)
+    } else {
+        ElMessage({
+            type: 'error',
+            message: 'SPU删除失败'
+        })
+    }
+}
+// 当路由跳转组件会被销毁时, 将仓库分类相关数据清空(调用路由组件$reset方法清空仓库数据)
+onBeforeUnmount(() => {
+    categoryStore.$reset()
+})
 </script>
 
 <style lang="scss" scoped>
