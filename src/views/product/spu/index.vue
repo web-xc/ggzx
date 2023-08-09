@@ -12,19 +12,19 @@
                     <el-table-column label="SPU描述" prop="description" show-overflow-tooltip></el-table-column>
                     <el-table-column label="SPU操作">
                         <template #="{row, $index}">
-                            <el-button type="primary" size="small" icon="Plus" title="添加SKU" @click="addSku(row)"></el-button>
-                            <el-button type="warning" size="small" icon="Edit" title="修改SPU" @click="updateSpu(row)"></el-button>
-                            <el-button type="info" size="small" icon="WarningFilled" title="查看SPU列表" @click="findSku(row)"></el-button>
+                            <el-button type="primary" icon="Plus" title="添加SKU" @click="addSku(row)"></el-button>
+                            <el-button type="warning" icon="Edit" title="修改SPU" @click="updateSpu(row)"></el-button>
+                            <el-button type="info" icon="WarningFilled" title="查看SPU列表" @click="findSku(row)"></el-button>
                             <el-popconfirm :title="`确定删除${row.spuName}吗?`" @confirm="deleteSpu(row)" width="170px" icon="Delete" icon-color="red" :hide-after="10">
                                 <template #reference>
-                                    <el-button type="danger" size="small" icon="Delete" title="删除SPU"></el-button>
+                                    <el-button type="danger" icon="Delete" title="删除SPU"></el-button>
                                 </template>
                             </el-popconfirm>
                         </template>
                     </el-table-column>
                 </el-table>
         <!-- 分页器 -->
-                <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[2, 5, 6]" :background="true" layout="prev, pager, next, jumper, ->, sizes, total" :total="total" @current-change="getHasSpu" @size-change="changeSize"/>    
+                <el-pagination v-model:current-page="pageNo" v-model:page-size="pageSize" :page-sizes="[2, 5, 6, 10]" :background="true" layout="prev, pager, next, jumper, ->, sizes, total" :total="total" @current-change="getHasSpu" @size-change="changeSize"/>    
             </div>
         <!-- 添加SPU或修改SPU的子组件 -->
             <SpuForm v-show="scene == 1" @changeScene="changeScene" ref="spu"></SpuForm>

@@ -39,7 +39,7 @@
             <el-pagination
                 v-model:current-page="pageNo"
                 v-model:page-size="limit"
-                :page-sizes="[2, 5, 6]"
+                :page-sizes="[2, 5, 6, 10]"
                 :background="true"
                 layout="prev, pager, next, jumper, ->, sizes, total"
                 :total="total"

@@ -33,7 +33,7 @@ watch(() => LayOutSettingStore.refsh, () => {
     transform: scale(0);
   }
   .fade-enter-active {
-    transition: all 0.3s;
+    transition: all 0.4s;
   }
   .fade-enter-to {
     opacity: 1;
