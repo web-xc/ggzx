@@ -8,26 +8,30 @@ export interface ResponseData {
 // 定义SKU对象的数据类型
 // SKU平台属性的数据类型
 export interface Attr {
+    id?: number,               // 属性id
     attrId: number | string,  // 平台属性id
     valueId: number | string  // 属性值id
 }
 // SKU属性与属性值的数据类型
 export interface saleAttr {
+    id?: number,                      // 属性id
     saleAttrId: number | string,      // 属性id
     saleAttrValueId: number | string  // 属性值id
 }
 // 定义添加SKU的数据类型
 export interface SkuData {
-    category3Id: string | number,        // 三级分类id
-    spuId: string | number,              // 已有的SPU的id
-    tmId: string | number,               // SPU品牌id
-    skuName: string,                     // sku名称
-    price: string | number,              // sku价格
-    weight: string | number,             // sku重量
-    skuDesc: string,                     // sku描述
+    category3Id?: string | number,        // 三级分类id
+    spuId?: string | number,              // 已有的SPU的id
+    tmId?: string | number,               // SPU品牌id
+    skuName?: string,                     // sku名称
+    price?: string | number,              // sku价格
+    weight?: string | number,             // sku重量
+    skuDesc?: string,                     // sku描述
     skuAttrValueList?: Attr[],           // 平台属性收集
     skuSaleAttrValueList?: saleAttr[],   // 销售属性
-    skuDefaultImg: string                // sku图片地址
+    skuDefaultImg?: string,               // sku图片地址
+    isSale?: number,                     // 控制商品上架与下架
+    id?: number                          // SPU的id 
 }
 
 // 定义获取SKU接口返回的数据类型
@@ -45,4 +49,9 @@ export interface SkuResponseData extends ResponseData {
         searchCount: boolean,
         pages: number
     }
+}
+
+// 定义获取SKU商品详情的数据类型
+export interface SkuInfoData extends ResponseData {
+    data: SkuData
 }
