@@ -2,7 +2,7 @@
     <div>
         <el-card>
             <!-- 卡片顶部添加品牌按钮 -->
-            <el-button type="primary" size="default" icon="Plus" @click="addTrademark">添加品牌</el-button>
+            <el-button type="primary" size="default" icon="Plus" @click="addTrademark" v-has="`btn.Trademark.add`">添加品牌</el-button>
             <!-- 表格组件: 用于展示已有的平台数据 -->
             <!-- 1. border: 设置表格是否有边框 -->
             <!-- 2. label: 列表名称 3. width: 表格列的宽度 4. align: 列的对齐方式 -->
@@ -21,10 +21,10 @@
                 </el-table-column>
                 <el-table-column label="品牌操作">
                     <template #="{ row, $index }">
-                        <el-button type="warning" size="default" icon="Edit" @click="updateTrademark(row)"></el-button>
+                        <el-button v-has="`btn.Trademark.update`" type="warning" size="default" icon="Edit" @click="updateTrademark(row)"></el-button>
                         <el-popconfirm :title="`确定删除${row.tmName}吗?`" width="170px" icon="Delete" icon-color="red" @confirm="removeTrademark(row.id)" :hide-after="10">
                             <template #reference>
-                                <el-button type="danger" size="default" icon="Delete"></el-button>
+                                <el-button type="danger" size="default" icon="Delete" v-has="`btn.Trademark.remove`"></el-button>
                             </template>
                         </el-popconfirm>
                     </template>

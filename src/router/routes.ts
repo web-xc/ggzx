@@ -51,7 +51,11 @@ export const constantRoute = [
             hidden: false,
             icon: 'Platform'
         }  
-    },
+    }
+]
+
+// 异步路由
+export const asyncRoute = [
     {
         path: '/acl',       
         name: 'Acl',
@@ -147,7 +151,11 @@ export const constantRoute = [
                 },
             }
         ]
-    },
+    }
+]
+
+// 任意路由
+export const anyRoute = [
     {
         path: '/:pathMatch(.*)*',  // 任意路由
         redirect: '/404',          // 重定向到404

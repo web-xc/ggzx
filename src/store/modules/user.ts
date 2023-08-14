@@ -8,8 +8,24 @@ import type { loginFormData, loginResponseData, userInfoResponseData } from "@/a
 import type { UserState } from './types/type'
 // 引入操作本地存储的工具方法
 import { SET_TOKEN, GET_TOKEN, REMOVE_TOKEN } from '@/utils/token'
-// 引入路由(常量路由器)
-import { constantRoute } from '@/router/routes'
+// 引入路由器
+import router from '@/router'
+// 引入路由(常量路由器、异步路由、任意路由做权限判断)
+import { constantRoute, asyncRoute, anyRoute } from '@/router/routes'
+// 引入lodash库(使用深拷贝方法解决异步路由Bug)
+import cloneDeep from 'lodash/cloneDeep'
+
+// 1.定义过滤异步路由的函数(用于权限判断)
+function filterAsyncRoute(asyncRoute: any, routes: any) {
+    return asyncRoute.filter((item: any) => {
+        if (routes.includes(item.name)) {
+            if (item.children && item.children.length > 0) {
+                item.children = filterAsyncRoute(item.children, routes)
+            }
+            return true
+        }
+    })
+}
 
 const useUserStore = defineStore('User', {
 // 小仓库存储数据的地方
@@ -18,7 +34,8 @@ const useUserStore = defineStore('User', {
             token: GET_TOKEN(), // 用户唯一标识
             menuRoutes: constantRoute, // 仓库存储生成菜单需要的数组(路由)
             username: '',
-            avatar: ''
+            avatar: '',
+            buttons: [] // 存储用户是否包含某一个按钮权限
         }
     },
 // 异步|逻辑的地方
@@ -48,6 +65,17 @@ const useUserStore = defineStore('User', {
             if (result.code == 200) {
                 this.username = result.data.name;
                 this.avatar = result.data.avatar
+                this.buttons = result.data.buttons
+
+// 2.调用过滤异步路由函数, 并传递异步路由与用户请求成功返回的路由(用于计算用户需展示的异步路由, 利用深拷贝)
+                let userAsyncRoute = filterAsyncRoute(cloneDeep(asyncRoute), result.data.routes)
+// 3.存储计算好的路由数据到本地(将路由数据展开)
+                this.menuRoutes = [...constantRoute, ...userAsyncRoute, ...anyRoute],
+// 4.目前路由管理的只有常量路由, 将计算好的异步路由、任意路由动态追加给路由器
+                [...userAsyncRoute, anyRoute].forEach((route: any) => {
+                    router.addRoute(route)
+                })
+                
                 return 'ok'
             } else {
                 return Promise.reject(new Error(result.message))

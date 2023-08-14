@@ -34,7 +34,8 @@ router.beforeEach(async (to: any, from: any, next: any) => {
             } else {
                 try {
                     await userStore.userInfo()
-                    next()
+// 1.方法一: 刷新时是异步路由, 有可能获取到用户信息, 但异步路由没有加载完毕, 出现空白效果Bug(使用...to解决)
+                    next({...to})
                 } catch (error) {
 // token过期或用户修改本地存储, 应清空token相关数据, 并携带当前query参数跳转至login
                     await userStore.userLogout()

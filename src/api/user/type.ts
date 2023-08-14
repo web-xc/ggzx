@@ -16,11 +16,13 @@ export interface loginResponseData extends ResponseData {
 }
 // 定义获取用户信息返回的数据类型
 export interface userInfoResponseData extends ResponseData {
-    routes: string[],
-    buttons: string[],
-    roles: string[],
-    name: string,
-    avatar: string
+    data: {
+        routes: string[],
+        buttons: string[],
+        roles: string[],
+        name: string,
+        avatar: string
+    }
 }
 
 

@@ -4,7 +4,7 @@
         <Category :scene="scene"></Category>
         <el-card style="margin: 10px 0px;">
             <div v-show="scene == 0">
-                <el-button type="primary" size="default" icon="Plus" :disabled="categoryStore.c3Id ? false : true" @click="addAttr">添加属性</el-button>
+                <el-button v-has="`btn.Attr.add`" type="primary" size="default" icon="Plus" :disabled="categoryStore.c3Id ? false : true" @click="addAttr">添加属性</el-button>
                 <el-table style="margin: 10px 0px;" border :data="attrArr">
                     <el-table-column label="序号" type="index" align="center" width="80px"></el-table-column>
                     <el-table-column label="属性名称" width="120px" prop="attrName"></el-table-column>
@@ -15,10 +15,10 @@
                     </el-table-column>
                     <el-table-column label="操作" width="130px">
                         <template #="{row, $index}">
-                            <el-button type="warning" size="default" icon="Edit" @click="updateAttr(row)"></el-button>
+                            <el-button v-has="`btn.Attr.update`" type="warning" size="default" icon="Edit" @click="updateAttr(row)"></el-button>
                             <el-popconfirm :title="`确定删除${row.attrName}吗?`" @confirm="deleteAttr(row.id)" width="170px" icon="Delete" icon-color="red" :hide-after="10">
                                 <template #reference>
-                                    <el-button type="danger" size="default" icon="Delete"></el-button>
+                                    <el-button v-has="`btn.Attr.remove`" type="danger" size="default" icon="Delete"></el-button>
                                 </template>
                             </el-popconfirm>
                         </template>

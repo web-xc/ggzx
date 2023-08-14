@@ -14,12 +14,12 @@
                 <el-table-column label="价格(元)" prop="price"></el-table-column>
                 <el-table-column label="操作" width="250px">
                     <template #="{row, $index}">
-                        <el-button :type="row.isSale == 1 ? 'success' : 'info'" :icon="row.isSale == 1 ? 'Bottom' : 'Top'" @click="updateSale(row)"></el-button>
-                        <el-button type="primary" icon="Edit" @click="updateSku"></el-button>
-                        <el-button type="info" icon="infoFilled" @click="findSku(row)"></el-button>
+                        <el-button v-has="`btn.Sku.updown`" :type="row.isSale == 1 ? 'success' : 'info'" :icon="row.isSale == 1 ? 'Bottom' : 'Top'" @click="updateSale(row)"></el-button>
+                        <el-button v-has="`btn.Sku.update`" type="primary" icon="Edit" @click="updateSku"></el-button>
+                        <el-button v-has="`btn.Sku.detail`" type="info" icon="infoFilled" @click="findSku(row)"></el-button>
                         <el-popconfirm :title="`确定删除${row.skuName}吗?`" @confirm="removeSku(row.id)" width="170px" icon="Delete" icon-color="red" :hide-after="10">
                             <template #reference>
-                                <el-button type="danger" icon="Delete"></el-button>
+                                <el-button v-has="`btn.Sku.remove`" type="danger" icon="Delete"></el-button>
                             </template>
                         </el-popconfirm>
                     </template>

@@ -18,6 +18,10 @@ import router from './router'
 import pinia from './store/index'
 // 引入路由鉴权
 import './permisstion'
+// 引入暗黑模式需要的样式
+import 'element-plus/theme-chalk/dark/css-vars.css'
+// 引入自定义指令文件
+import { isHasButton } from '@/directive/has'
 
 // 创建应用实例对象app
 const app = createApp(App)
@@ -38,6 +42,9 @@ app.use(pinia)
 
 // 挂载模板App
 app.mount('#app')
+
+// 调用自定义指令方法, 将app传递过去
+isHasButton(app)
 
 // 引入封装SVG全局组件
 // import SvgIcon from '@/components/SvgIcon/index.vue'
