@@ -80,7 +80,7 @@ const setColor = () => {
     html.style.setProperty('--el-color-primary', color.value)
 }
 // 主题颜色组件切换配置的数据
-const color = ref('rgba(255, 69, 0, 0.68)')
+const color = ref('rgba(64 158 255)')
 const predefineColors = ref([
   '#ff4500',
   '#ff8c00',

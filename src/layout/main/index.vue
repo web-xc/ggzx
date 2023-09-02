@@ -1,7 +1,7 @@
 <template>
     <!-- 路由组件出口位置 -->
     <router-view v-slot="{ Component }">
-        <transition name="fade">
+        <transition name="fade" mode="out-in" appear>
     <!-- 渲染layout一级路由组件的子路由器 -->
             <component :is="Component" v-if="flag"/>
         </transition>
@@ -28,15 +28,24 @@ watch(() => LayOutSettingStore.refsh, () => {
 </script>
 
 <style scoped>
-  .fade-enter-from {
-    opacity: 0;
-    transform: scale(0);
-  }
-  .fade-enter-active {
-    transition: all 0.4s;
-  }
-  .fade-enter-to {
-    opacity: 1;
-    transform: scale(1);
-  }
+/* 路由切换动画 */
+/* fade-transform */
+.fade-leave-active,
+.fade-enter-active {
+  transition: all 0.2s;
+}
+/* 可能为enter失效, 拆分为enter-from和enter-to */
+.fade-enter-from {  
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.fade-enter-to { 
+  opacity: 1;
+  transform: translateX(0px);
+}
+ 
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+}
 </style>

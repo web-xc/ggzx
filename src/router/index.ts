@@ -1,5 +1,5 @@
 // 通过vue-router插件实现模板路由配置
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 // 引入常量路由
 import { constantRoute } from './routes'
 

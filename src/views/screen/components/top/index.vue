@@ -24,7 +24,7 @@ import moment from 'moment'
 // 获取路由对象
 const $router = useRouter()
 // 存储当前时间(利用moment插件)
-const time = ref(moment().format('YYYY年MM月DD日 hh:mm:ss'))
+const time = ref(moment().format('YYYY年MM月DD日 HH:mm:ss'))
 const timer = ref(0)
 
 // 首页按钮的回调(跳转到路由首页)
@@ -34,7 +34,7 @@ const goHome = () => {
 // 组件挂载完毕(开启定时器, 更新当前时间)
 onMounted(() => {
     timer.value = setInterval(() => {
-        time.value = moment().format('YYYY年MM月DD日 hh:mm:ss')
+        time.value = moment().format('YYYY年MM月DD日 HH:mm:ss')
     }, 1000) 
 })
 // 组件销毁之前(清除时间定时器)
