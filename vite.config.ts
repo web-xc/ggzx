@@ -37,9 +37,9 @@ export default defineConfig(({ command, mode }) => {
             proxy: {
                 [env.VITE_APP_BASE_API]: {
                     // 获取数据的服务器地址
-                    target: '139.198.163.91:80',
+                    target: env.VITE_SERVE,
                     // 是否代理跨域
-                    changeOrigin: false,
+                    changeOrigin: true,
                     // 路径重写
                     rewrite: (path) => path.replace(/^\/api/, '')
                 }
