@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode }) => {
                     // 获取数据的服务器地址
                     target: env.VITE_SERVE,
                     // 是否代理跨域
-                    changeOrigin: true,
+                    changeOrigin: false,
                     // 路径重写
                     rewrite: (path) => path.replace(/^\/api/, '')
                 }
