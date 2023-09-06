@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode }) => {
                     // 获取数据的服务器地址
                     target: '139.198.163.91:80',
                     // 是否代理跨域
-                    changeOrigin: true,
+                    changeOrigin: false,
                     // 路径重写
                     rewrite: (path) => path.replace(/^\/api/, '')
                 }
