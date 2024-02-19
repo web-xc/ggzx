@@ -5,7 +5,7 @@
             <el-col :span="12" :xs="24">
                 <el-form class="login_form" :model="loginForm" :rules="rules" ref="loginForms">
                     <h1>Hello</h1>
-                    <h2>欢迎来到汇客运营平台</h2>
+                    <h2>欢迎来到汇源运营平台</h2>
                         <el-form-item prop="username">
                             <el-input :prefix-icon="User" v-model="loginForm.username"></el-input>
                         </el-form-item>
@@ -41,7 +41,7 @@ const loginForms = ref()
 const $route = useRoute()
 
 // 收集账号与密码数据
-const loginForm = reactive({username: 'admin', password: 'atguigu123'})
+const loginForm = reactive({username: 'admin', password: '111111'})
 // 登录按钮回调
 const login = async () => {
 // 保证全部表单校验通过再发送请求
@@ -108,21 +108,23 @@ const rules = {
   .login_container {
     width: 100%;
     height: 100vh;
-    background: url('@/assets/images/background.jpg') no-repeat;
+    background: url('@/assets/images/bg.jpg') no-repeat;
     background-size: cover;
     .login_form {
         position: relative;
         width: 80%;
-        top: 30vh;
-        background: url('@/assets/images/login_form.png') no-repeat;
+        top: 20vh;
+        // background: url('@/assets/images/login_form.png') no-repeat;
+        border: 1px solid #ccc;
+        border-radius: 15px;
         background-size: cover;
         padding: 40px;
         h1 {
-            color: #fff;
+            color: #606266;
             font-size: 40px;
         }
         h2 {
-            color: #fff;
+            color: #606266;
             font-size: 20px;
             margin: 20px 0px;
         }

@@ -1,4 +1,4 @@
-# 本项目是汇客运营平台后台管理系统
+# 本项目是汇源运营平台后台管理系统
 
 # 项目技术栈: Vue3、TypeScript、Vite、Pinia、Element-Plus、Vue-Router、Echarts、Axios、Scss...
 

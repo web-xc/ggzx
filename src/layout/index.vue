@@ -90,7 +90,7 @@ const LayOutSettingStore = useLayOutSettingStore()
         width: calc(100% - $base-menu-width);
         height: calc(100vh - $base-tabbar-height);
         // background-color: #e6e6e6;
-        background-color: #f9f9f9;
+        background-color: #fff;
         overflow: auto;
         transition: all 0.3s;
         

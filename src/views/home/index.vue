@@ -4,7 +4,7 @@
             <div class="box">
                 <img :src="userStore.avatar" class="avatar">
                 <div class="bottom">
-                    <h3 class="title">{{ getTime() }}😀{{ userStore.username }}, 开始你一天的工作吧！</h3>
+                    <h3 class="title">{{ getTime() }}{{ userStore.username }}, 开始你一天的工作吧！</h3>
                     <p class="subtitle">{{ setting.title }}</p>
                 </div>
             </div>
@@ -44,9 +44,9 @@ const userStore = useUserStore()
             margin-bottom: 30px;
         }
         .subtitle {
-            color: #7200ff;
+            // color: #000;
             font-weight: bold;
-            font-style: italic;
+            // font-style: italic;
         }
     }
 }

@@ -23,7 +23,7 @@ import Setting from './setting/index.vue'
     width: 100%;
     height: 100%;
     font-size: 20px;
-    background-color: #f9f9f9;
+    background-color: #fff;
     .tabbar_left {
         display: flex;
         align-items: center;
